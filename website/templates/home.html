@@ -1,0 +1,119 @@
+{% extends "base.html" %} {% block title %} HOODISH | Home {% endblock %}
+
+{% block content %}
+<section class="bg-1 text-white p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mx-5">
+            <div>
+                <h1>Hoodie Made Stylish</h1>
+                <p class="lead my-4">
+                    Our hoodies are made with the finest quality, ensuring your comfort wearing them everyday.
+                </p>
+                <a href="#products" class="p-2 btn-lg text-white btn-2 mb-md-5 fs-5 text-decoration-none"><span class="p-4">Browse Our Store</span></a>
+            </div>
+            <img class="img w-50 px-5 d-none d-lg-block" src="../static/images/hoodie-1.png" alt="">
+        </div>
+    </div>
+</section>
+
+<section class="bg-white text-center py-5" id="products">
+    <div class="container">
+        <div class="row text-center">
+            {% for product in products %}
+            {% if product.stock > 0 %}
+            <div class="col-xl-3 my-3 col-md-6">
+                <div class="card bg-white p-4">
+                    <div class="text-dark hover-pointer">
+                        <a href="/product/{{ product.id }}" class="card-body text-center text-md-start my-2 text-decoration-none text-dark">
+                            <div class="h1 mb-lg-5 mb-3 text-center">
+                                <img src="{{ url_for('views.display_image', filename=product.img + '.jpg') }}" alt="None">
+                            </div>
+                            <h5 class="card-title mb-3">
+                                {{ product.name }}
+                            </h5>
+                            <p class="card-text">
+                                Rp{{ "{:,}".format(product.price - (product.discount/100) * product.price) }}
+                            </p>
+                            {% if product.discount > 0 %}
+                            <p class="card-text">
+                                <span class="discount p-1">{{ product.discount }}%</span> <strike class="mx-1">Rp{{ "{:,}".format(product.price) }}</strike>
+                            </p>
+                            {% endif %}
+
+                        </a>
+                    </div>
+                    <button type="button" class="btn-1 text-white p-2 w-50 mx-md-0 mx-auto"  data-bs-toggle="modal" data-bs-target="#cart_{{ product.id }}">Add to Cart</button>
+                </div>
+
+            </div>
+            <div class="modal fade" id="cart_{{ product.id }}" tabindex="-1" aria-labelledby="enrollLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <form>
+                        <img class="my-3"src="{{ url_for('views.display_image', filename=product.img + '.jpg') }}" alt="None">
+                        <h5 class="fw-bold">{{ product.name }}</h5>
+                        <h5 class="py-3">Choose Sizing:</h5>
+                        <div class="radio-buttons">
+                            <label class="custom-radio mb-1">
+                              <input type="radio" name={{ "radio_" + product.id|string() }} value="S"/>
+                              <span class="radio-btn">
+                                  <h5>S</h5>
+                              </span>
+                            </label>
+                            <label class="custom-radio mb-1">
+                              <input type="radio" name={{ "radio_" + product.id|string() }} value="M" />
+                              <span class="radio-btn">
+                                <h5>M</h5>
+                              </span>
+                            </label>
+                            <label class="custom-radio mb-1">
+                              <input type="radio" name={{ "radio_" + product.id|string() }} value="L"/>
+                              <span class="radio-btn">
+                                <h5>L</h5>
+                              </span>
+                            </label>
+                            <label class="custom-radio mb-1">
+                              <input type="radio" name={{ "radio_" + product.id|string() }} value="XL"/>
+                              <span class="radio-btn">
+                                <h5>XL</h5>
+                              </span>
+                            </label>
+                        </div>
+                        <div class="py-3">
+                            <input class="text-center col-3 w-10" type="number" name="amount" id="amount_{{ product.id }}" min="1" max="{{ product.stock }}" step="1" value="1"/>
+                            <span class="mx-2">Stock : {{ product.stock}}</span>
+                        </div>
+
+                        <div class="row w-50 mx-auto mt-2">
+                            <div class="text-start">
+                                {% if product.discount > 0 %}
+                                <div class="text-end">
+                                    <span class="discount p-1">{{ product.discount }}%</span> <strike class="mx-1">Rp{{ "{:,}".format(product.price) }}</strike>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-end mx-auto">
+                                <p class="text-start my-0">Subtotal</p>
+                                <p class="fw-bold fs-5 text-end my-0">Rp{{ "{:,}".format(product.price - (product.discount/100) * product.price) }}</p>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn-1 text-white py-2 px-4 fs-6 my-1 w-100 fw-bold" onclick="add_to_cart({{ product.id }})">+ Add to Cart</button>
+                                <button type="button" class="btn-outline-1 text-1 py-2 px-2 w-100 fw-bold" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                        <br>
+
+                      </form>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

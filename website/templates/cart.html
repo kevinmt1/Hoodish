@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% block title %} HOODISH | Cart {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h4 class="fw-bold m-2">Cart</h4>
+    <div class="row g-5">
+        <div class="col-8">
+            {% for i in range(products|length) %}
+            <div>
+                <div class="d-flex justify-content-between my-3">
+                    <div class="d-flex">
+                        <img class="img-cart"src="{{ url_for('views.display_image', filename=products[i].img + '.jpg') }}" alt="None">
+                        <div class="ms-3">
+                            <p>{{ products[i].name }} - {{ cart_items[i].size }}</p>
+                            <div class="d-flex">
+                                {% if products[i].discount > 0 %}
+                                <p class="discount p-1 my-auto">{{ products[i].discount }}%</p> <p class="mx-1 text-decoration-line-through my-auto">Rp {{ "{:,}".format(products[i].price) }}</p>
+                                {% endif %}
+                                <p class="my-auto">Rp{{ "{:,}".format(products[i].price - (products[i].discount/100) * products[i].price) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Qty: {{ cart_items[i].qty }}</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+    {% endfor %}
+        </div>
+        <div class="col-4">
+            <div class="card p-3">
+                <p class="card-title fw-bold lead">
+                    Cart Summary
+                </p>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        Total Price ({{ cart_items | sum(attribute='qty')}} items)
+                    </div>
+                    <div>
+                        {% set sum = namespace(price=0) %}
+                        {% for i in range(products|length) %}
+                            {% set sum.price = sum.price + products[i].price * cart_items[i].qty %}
+                        {% endfor %}
+                        Rp {{ "{:,}".format( sum.price ) }}
+                    </div>
+                </div>
+                {% set discount = namespace(disc=0) %}
+                {% for i in range(products|length) %}
+                    {% set discount.disc = discount.disc + products[i].price * products[i].discount/100 * cart_items[i].qty %}
+                {% endfor %}
+                <div class="d-flex justify-content-between">
+                    <div>
+                        Total Discount
+                    </div>
+                    <div>
+                        Rp {{ "{:,}".format( discount.disc ) }}
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between fw-bold my-4">
+                    <div>
+                        Total Price
+                    </div>
+                    <div>
+                        {% set total_price =  sum.price - discount.disc %}
+                        Rp {{ "{:,}".format( total_price ) }}
+                    </div>
+                </div>
+                <div>
+                    <button class="btn-1 w-100 p-2 fs-5 text-white" type="submit" onclick="confirm_transaction( {{total_price}} )">
+                        Order
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

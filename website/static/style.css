@@ -1,0 +1,149 @@
+body::before{
+    display: block;
+    content: '';
+    height: 72px;
+}
+
+.bg-1{
+    background-color: #405a54;
+}
+
+.bg-2{
+    background-color: #A66955;
+}
+
+.text-1{
+    color: #405a54;
+}
+
+.text-2{
+    color: #A66955;
+}
+
+.btn-outline-1{
+    border-radius: 0.375rem;
+    border: 0px;
+    outline: 2px;
+    outline-color: #405a54;
+    outline-style: solid;
+}
+
+.btn-1{
+    border-radius: 0.375rem;
+    background-color: #405a54;
+    padding: 2px;
+    border: none;
+}
+
+.btn-1:hover{
+    background-color: #2d4640;
+}
+
+.btn-2{
+    border-radius: 40px;
+    background-color: #A66955;
+    border: 0px;
+}
+
+.btn-2:hover{
+    background-color: #A66955;
+}
+
+.drop-shadow{
+    filter: drop-shadow(0px 0px 5px rgb(80, 80, 80));
+}
+
+.text-small{
+    font-size: 10px;
+}
+
+.footer{
+    position: relative;
+    margin-top: -150px; /* negative value of footer height */
+    height: 150px;
+    clear:both;
+    padding-top:20px;
+}
+
+body{
+    height: 100%;
+}
+
+.bordered{
+    border: 1px;
+    border-radius: 7px;
+    border-style: solid;
+    height: 30px;
+}
+
+.border-help{
+    padding-top: 5px;
+}
+
+.text-gray{
+    color: #6e6e6e;
+}
+
+.profile{
+    object-fit: cover;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border: 2px solid;
+}
+
+.dropdown-menu{
+    --bs-dropdown-link-active-bg: white;
+    --bs-dropdown-link-active-color: black;
+}
+
+.discount{
+    background-color: #ffdbe2;
+    color: #f94d63;
+    border-radius: 10%;
+}
+
+.hover-pointer:hover{
+    cursor: pointer;
+}
+
+.custom-radio input {
+    display: none;
+}
+
+.radio-btn {
+    width: 35px;
+    height: 40px;
+    display: flex;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid #adadad;
+    justify-content: center;
+    align-items: center;
+}
+
+h5{
+    margin: 0px;
+}
+
+.custom-radio input:checked + .radio-btn {
+    border: 2px solid #8373e6;
+}
+
+.w-90{
+    width: 90%;
+}
+
+.w-10{
+    width: 10%;
+}
+
+.img-product{
+    width: 250px;
+}
+
+.img-cart{
+    width: 80px;
+}

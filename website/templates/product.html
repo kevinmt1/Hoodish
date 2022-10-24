@@ -1,0 +1,90 @@
+{% extends "base.html" %} {% block title %} HOODISH | {{product.name}} {% endblock %}
+
+{% block content %}
+<div class="container my-5 text-md-start text-center">
+    <div class="d-md-flex d-block justify-content-center ms-md-4">
+        <div class="align-self-start">
+            <img class="img-product mb-3" src="{{ url_for('views.display_image', filename=product.img + '.jpg') }}" alt="None">
+        </div>
+        <div class="mx-3 col-md-4">
+            <div class="mb-2">
+                <b class="lead fw-bold fs-5">{{ product.name }}</b>
+            </div>
+            <div class="py-2">
+                <b class="lead fw-bold fs-3">Rp{{ "{:,}".format(product.price - (product.discount/100) * product.price) }}</b>
+            </div>
+            {% if product.discount > 0 %}
+                        <p class="card-text">
+                            <span class="discount p-1">{{ product.discount }}%</span> <strike class="mx-1">Rp {{ "{:,}".format(product.price) }}</strike>
+                        </p>
+                        {% endif %}
+            <div class=" mb-2">
+                <b class="lead fw-bold">Choose Sizing: </b>
+            </div>
+            <div class="radio-buttons">
+                <label class="custom-radio mb-1">
+                  <input type="radio" name="radio" value="S" checked />
+                  <span class="radio-btn">
+                      <h5>S</h5>
+                  </span>
+                </label>
+                <label class="custom-radio mb-1">
+                  <input type="radio" name="radio" value="M" />
+                  <span class="radio-btn">
+                    <h5>M</h5>
+                  </span>
+                </label>
+                <label class="custom-radio mb-1">
+                  <input type="radio" name="radio" value="L"/>
+                  <span class="radio-btn">
+                    <h5>L</h5>
+                  </span>
+                </label>
+                <label class="custom-radio mb-1">
+                  <input type="radio" name="radio" value="XL"/>
+                  <span class="radio-btn">
+                    <h5>XL<h5>
+                  </span>
+                </label>
+            </div>
+
+        </div>
+        <div class="d-md-flex d-none" style="height: 80vh">
+            <div class="vr d-md-block d-none"></div>
+        </div>
+        <div class="align-self-start col-lg-3 col-md-4 col-6 m-md-0 m-auto mx-md-4">
+            <div class="my-3">
+                <img class="w-25 d-md-block d-none" src="{{ url_for('views.display_image', filename=product.img + '.jpg') }}" alt="None">
+            </div>
+            <div class="py-3">
+                <input class="text-center col-3" type="number" name="amount" id="amount" min="1" max="{{ product.stock }}" step="1" value="1"/>
+                <span class="mx-2">Stock : {{ product.stock}}</span>
+            </div>
+
+            <div class="row">
+                <div class="text-start">
+                    {% if product.discount > 0 %}
+                    <div class="text-decoration-line-through text-end">
+                        Rp{{ "{:,}".format(product.price) }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="d-flex justify-content-between align-items-end">
+                    <p class="text-start">Subtotal</p>
+                    <p class="fw-bold fs-5 text-end">Rp{{ "{:,}".format(product.price - (product.discount/100) * product.price) }}</p>
+                </div>
+                <div class="text-center">
+                    <button class="btn-1 text-white p-2 px-3 fs-6 w-100 my-1 fw-bold">+ Add to Cart</button>
+                </div>
+                <div class="text-center">
+                    <button class="btn-outline-1 text-1 p-2 px-3 w-100 my-1 fw-bold fs-6">Buy Now</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
