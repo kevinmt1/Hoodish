@@ -49,6 +49,7 @@
             </div>
 
         </div>
+
         <div class="d-md-flex d-none" style="height: 80vh">
             <div class="vr d-md-block d-none"></div>
         </div>
@@ -73,12 +74,24 @@
                     <p class="text-start">Subtotal</p>
                     <p class="fw-bold fs-5 text-end">Rp{{ "{:,}".format(product.price - (product.discount/100) * product.price) }}</p>
                 </div>
+                <div class="w-100">
+                    <hr>
+                </div>
+                {% if user.is_authenticated %}
                 <div class="text-center">
                     <button class="btn-1 text-white p-2 px-3 fs-6 w-100 my-1 fw-bold">+ Add to Cart</button>
                 </div>
                 <div class="text-center">
                     <button class="btn-outline-1 text-1 p-2 px-3 w-100 my-1 fw-bold fs-6">Buy Now</button>
                 </div>
+                {% else %}
+                <div>
+                    <p class="text-center">You need to be logged in to be able to order</p>
+                </div>
+                <div class="text-center">
+                    <a href="/login" class="btn-1 p-2 px-3 text-white" id="sign-up">Log In</a>
+                </div>
+                {% endif %}
             </div>
 
         </div>

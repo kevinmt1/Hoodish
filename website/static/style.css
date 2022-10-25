@@ -1,3 +1,17 @@
+html {
+    font-size: 16px;
+}
+
+@media(max-width: 576px){
+    html{
+        font-size: 12px;
+    }
+
+    .fs-5{
+        font-size: 1.1rem !important;
+    }
+}
+
 body::before{
     display: block;
     content: '';
@@ -33,6 +47,8 @@ body::before{
     background-color: #405a54;
     padding: 2px;
     border: none;
+    text-decoration: none;
+    color: white;
 }
 
 .btn-1:hover{

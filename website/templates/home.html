@@ -9,7 +9,7 @@
                 <p class="lead my-4">
                     Our hoodies are made with the finest quality, ensuring your comfort wearing them everyday.
                 </p>
-                <a href="#products" class="p-2 btn-lg text-white btn-2 mb-md-5 fs-5 text-decoration-none"><span class="p-4">Browse Our Store</span></a>
+                <a href="#products" class="p-2 btn-lg text-white btn-2 mb-md-5 fs-5 text-decoration-none d-sm-inline d-none"><span class="p-4">Browse Our Store</span></a>
             </div>
             <img class="img w-50 px-5 d-none d-lg-block" src="../static/images/hoodie-1.png" alt="">
         </div>
@@ -39,7 +39,6 @@
                                 <span class="discount p-1">{{ product.discount }}%</span> <strike class="mx-1">Rp{{ "{:,}".format(product.price) }}</strike>
                             </p>
                             {% endif %}
-
                         </a>
                     </div>
                     <button type="button" class="btn-1 text-white p-2 w-50 mx-md-0 mx-auto"  data-bs-toggle="modal" data-bs-target="#cart_{{ product.id }}">Add to Cart</button>
@@ -93,14 +92,24 @@
                                 </div>
                                 {% endif %}
                             </div>
-                            <div class="d-flex justify-content-between align-items-end mx-auto">
+                            <div class="d-flex justify-content-between align-items-end mx-auto mb-2">
                                 <p class="text-start my-0">Subtotal</p>
-                                <p class="fw-bold fs-5 text-end my-0">Rp{{ "{:,}".format(product.price - (product.discount/100) * product.price) }}</p>
+                                <p class="fw-bold fs-5 text-end my-0 price">Rp{{ "{:,}".format(product.price - (product.discount/100) * product.price) }}</p>
                             </div>
+                            <hr>
+                            {% if user.is_authenticated %}
                             <div class="text-center">
                                 <button type="button" class="btn-1 text-white py-2 px-4 fs-6 my-1 w-100 fw-bold" onclick="add_to_cart({{ product.id }})">+ Add to Cart</button>
                                 <button type="button" class="btn-outline-1 text-1 py-2 px-2 w-100 fw-bold" data-bs-dismiss="modal">Cancel</button>
                             </div>
+                            {% else %}
+                            <div>
+                                <p class="text-center">You need to be logged in to be able to order</p>
+                            </div>
+                            <div class="text-center">
+                                <a href="/login" class="btn-1 p-2 px-3 text-white w-100" id="log-in">Log In</a>
+                            </div>
+                            {% endif %}
                         </div>
                         <br>
 
